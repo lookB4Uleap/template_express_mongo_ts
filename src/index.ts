@@ -12,12 +12,12 @@ const DATABASE_URL = process.env.DATABASE_URL;
 DATABASE_URL && mongoose.connect(
     DATABASE_URL
 ).then(
-    () => console.log(`[OrderMS ${process.pid}] : Database Found`)
+    () => console.log(`[server] : Database Found`)
 ).catch(err => console.log(err))
 
 const db = mongoose.connection;
 db.on('error', err => console.error(err));
-db.once('open', () => console.log(`[OrderMS ${process.pid}] : Connected to database`));
+db.once('open', () => console.log(`[server] : Connected to database`));
 
 app.use(cors());
 app.use(express.json());

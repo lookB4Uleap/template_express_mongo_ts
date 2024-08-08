@@ -20,10 +20,10 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
 const DATABASE_URL = process.env.DATABASE_URL;
-DATABASE_URL && mongoose_1.default.connect(DATABASE_URL).then(() => console.log(`[OrderMS ${process.pid}] : Database Found`)).catch(err => console.log(err));
+DATABASE_URL && mongoose_1.default.connect(DATABASE_URL).then(() => console.log(`[server] : Database Found`)).catch(err => console.log(err));
 const db = mongoose_1.default.connection;
 db.on('error', err => console.error(err));
-db.once('open', () => console.log(`[OrderMS ${process.pid}] : Connected to database`));
+db.once('open', () => console.log(`[server] : Connected to database`));
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.get('/', (req, res) => {
