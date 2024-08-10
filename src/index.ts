@@ -38,7 +38,7 @@ app.get('/data', async (req: Request, res: Response) => {
     try {
         const collection = db.collection('listingsAndReview');
         // const model = mongoose.model('listingsAndReview', new Schema());
-        const data = collection.find().limit(100);
+        const data = collection.find();
         // const data = await model.find().lean();
         console.log(JSON.stringify(data));
         res.status(200).json({data});
