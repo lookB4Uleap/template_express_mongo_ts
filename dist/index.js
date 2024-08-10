@@ -35,6 +35,20 @@ app.get('/ip', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('[server] IP : ', data);
     res.json({ ip: data });
 }));
+app.get('/data', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const collection = db.collection('listingsAndReview');
+        // const model = mongoose.model('listingsAndReview', new Schema());
+        const data = collection.find().limit(100);
+        // const data = await model.find().lean();
+        console.log(JSON.stringify(data));
+        res.status(200).json({ data });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Something went wrong!" });
+    }
+}));
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });

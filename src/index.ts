@@ -2,7 +2,8 @@ import express, { Express, Request, Response } from 'express';
 import 'dotenv/config'; // remember
 import cors from 'cors';
 import axios from 'axios';
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import { strict } from 'assert';
 
 const app: Express = express();
 const port = process.env.PORT || 5000;
@@ -31,6 +32,21 @@ app.get('/ip', async (req: Request, res: Response) => {
     const { data } = await axios.get('https://curlmyip.org/');
     console.log('[server] IP : ', data);
     res.json({ ip: data });
+});
+
+app.get('/data', async (req: Request, res: Response) => {
+    try {
+        const collection = db.collection('listingsAndReview');
+        // const model = mongoose.model('listingsAndReview', new Schema());
+        const data = collection.find().limit(100);
+        // const data = await model.find().lean();
+        console.log(JSON.stringify(data));
+        res.status(200).json({data});
+    }
+    catch(err: any) {
+        console.error(err);
+        res.status(500).json({error: "Something went wrong!"});
+    }
 });
 
 app.listen(port, () => {
